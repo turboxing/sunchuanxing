@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1">-->
+    <!--<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,maximum-scale=1,user-scalable=no">-->
+    <!--<meta name="screen-orientation" content="portrait">-->
+    <!--<meta name="apple-mobile-web-app-capable" content="yes">-->
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <!--<meta name="full-screen" content="yes">-->
+    <!--<meta name="x5-fullscreen" content="true">-->
+    <!--<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />-->
+    <title>测试js和webview</title>
+    <!--<script>-->
+        <!--var  a = 'name';-->
+    <!--</script>-->
+    <!--<script>-->
+
+        <!--window.onload(alert(a));-->
+<!--//        alert(a);-->
+        <!--console.log(a);-->
+    <!--</script>-->
+
+    <script type="text/javascript" src="http://ww.baidu.com"></script>
+    <script>
+
+
+        function cn_GetAppParam(url) {
+            var iFrame;
+//            alert('23');
+            iFrame = document.createElement("iframe");
+            iFrame.setAttribute("src", url);
+            iFrame.setAttribute("style", "display:none;");
+            iFrame.setAttribute("height", "0px");
+            iFrame.setAttribute("width", "0px");
+            iFrame.setAttribute("frameborder", "0");
+            document.body.appendChild(iFrame);
+            // 发起请求后这个 iFrame 就没用了，所以把它从 dom 上移除掉
+            iFrame.parentNode.removeChild(iFrame);
+            iFrame = null;
+        }
+        function JSCallNativeForCommPam(param) {
+            s
+            var obj = eval('(' + param + ')');
+           alert(obj.client) ;
+//            alert(param);
+
+        }
+        function firstClick() {
+
+            cn_GetAppParam("cn_GetAppParam://shareClick?title=分享的标题&content=分享的内容&url=链接地址&imagePath=图片地址");
+        }
+
+
+//        window.onload =  getBannerPosition();
+//        window.onload = getLocalInfo();
+        window.onload =   function () {
+            var  vaule =  localStorage.getItem('phone');
+            var x =  document.getElementById('vauleDisplay');
+            if(vaule){
+
+                x.style.color = '#bbbbbb';
+                document.getElementById('vauleDisplay').innerHTML = vaule;
+            }else {
+                x.style.color = '#F83C5C';
+                document.getElementById('vauleDisplay').innerHTML = 'localStorage没有值';
+            }
+        };
+        function setBannerPosition() {
+
+            window.webkit.messageHandlers.setBannerPosition.postMessage(0)
+        }
+
+        function CallBackSetBannerPositionFromNative(str) {
+            alert(str);
+//            if (str) {
+//                alert(str);
+//            }
+        }
+        function getBannerPosition() {
+//            alert('getBannerPosition');
+            window.webkit.messageHandlers.getBannerPosition.postMessage('')
+
+        }
+        function CallBackGetBannerPositionFromNative(str) {
+            alert('CallBackGetBannerPositionFromNative---->' + str);
+        }
+
+//        function CallBackSetBannerPositionFromNative(isSuccess) {
+//            alert(isSuccess);
+////         if (isSuccess){
+////             alert(isSuccess)
+////         }
+//        }
+                function CallLocalInfoFromNative(arg) {
+                    console.log(arg);
+                    var commonBox = document.getElementById('commonBox');
+                    var obj = JSON.stringify(arg);
+                    var p = document.createElement('p');
+                    p.innerHTML = obj;
+                    commonBox.appendChild(p);
+                    var parse =  JSON.parse(obj);
+                    console.log(parse);
+                }
+//
+//        if(window.haha){// native 注入这个对象
+//            alert('you zheege duixiang ');
+//        }
+        window.getDataTextClick =  function () {
+            var  vaule =  localStorage.getItem('phone');
+            alert(vaule);
+        }
+
+        function saveDateBtnClick() {
+            var a =document.getElementById("saveData").value;
+            localStorage.setItem('phone',a);
+            alert(a);
+        }
+        function clearLocalData() {
+            localStorage.clear();
+            alert('clear');
+
+        }
+
+        function payResult(str) {
+            if(str == '我来自oc'){
+                alert(str);
+            }
+        }
+        function   getLocation() {
+            if (navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(displayPosition, locationError);
+            } else {
+                alert('浏览器不支持地理定位。');
+            }
+        }
+        var displayPosition = function(pos) {
+            alert('维度：'+ pos.coords.latitude+',经度：'+ pos.coords.longitude);
+            document.getElementById("label").innerHTML = '维度：'+ pos.coords.latitude+',经度：'+ pos.coords.longitude;
+            var properties = ['longitude', 'latitude', 'altitude', 'accuracy', 'altitudeAccuracy', 'heading', 'speed'];
+            for (var i = 0, len = properties.length; i < len; i++) {
+                var value = pos.coords[properties[i]];
+                document.getElementById(properties[i]).innerHTML = value;
+            }
+            document.getElementById('timestamp').innerHTML = pos.timestamp;
+        }
+        var locationError = function(error){
+            switch(error.code) {
+                case error.TIMEOUT:
+                    showError('A timeout occured! Please try again!');
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    showError('We can\'t detect your location. Sorry!');
+                    break;
+                case error.PERMISSION_DENIED:
+                    showError('Please allow geolocation access for this to work.');
+                    break;
+                case error.UNKNOWN_ERROR:
+                    showError('An unknown error occured!');
+                    break;
+            }
+        }
+        var showError = function(error){
+            alert(error);
+        }
+
+    function changetext() {
+        alert("hello world");
+
+    }
+    function createUlli() {
+//        var propertery = Object.keys(window);
+//        alert(propertery);
+//        console.log(typeof "");
+
+//        console.log(typeof 0);
+
+//        console.log(typeof []);
+
+//        console.log(typeof {});
+
+        var  json =  {"client":"财鸟贷款社区","clientType":"0"};
+
+        console.log(typeof json);// 判断对象类型
+        console.log(json.client)
+        alert(json.client + json.clientType);
+        console.log(json.clientType);
+
+
+
+//
+    }
+    /*push 动作*/
+    function woyaoPush() {
+        window.webkit.messageHandlers.startPage.postMessage("http://192.168.1.140:8888/easenetlogin/dingweiliu.html?_ijt=rmm6m269umi67n6ipknoj66vrq")
+    }
+        function disp_confirm()
+        {
+            var r=confirm("Press a button")
+            if (r==true)
+            {
+                alert("You pressed OK!");
+            }
+            else
+            {
+                alert("You pressed Cancel!");
+            }
+        }
+        /*
+         * {
+         IsRefresh = true;
+         RefreshUrl = https://test.cainiaodk.com/#/mine/mines?timestamp=1512973047000;
+         }
+         * */
+        function woqupop() {
+            window.webkit.messageHandlers.finishPage.postMessage({'IsRefresh':'true','RefreshUrl':'http://192.168.1.140:8888/easenetlogin/dingweiliu.html?_ijt=rmm6m269umi67n6ipknoj66vrq'})
+        }
+        function woquShare() {
+            var message = {
+                'title' : 'hello',
+                'content': 'ssssssss',
+                'imgurl' : 'imageUrl',
+                'url':'http://www.baodi.com'
+            };
+            window.webkit.messageHandlers.share.postMessage(message)
+        }
+        /*inout 内容测试*/
+        function disp_prompt()
+        {
+            var name=prompt("Please enter your name","")
+            if (name!=null && name!="")
+            {
+                alert(name);
+            }
+        }
+
+        function getLocalInfo() {
+            window.webkit.messageHandlers.getLocalInfo.postMessage('');
+        }
+
+    </script>
+</head>
+<body onload="firstClick()">
+<style>
+    *{
+        font-size: 35px;
+    }
+
+    .btn{
+        width: 100%;
+        height: 100px;
+        margin-top: 30px;
+    }
+</style>
+<div>
+    <div style="width: 100%;height: 80px ; margin: 0 auto;text-align: center; background-color: #003398">
+        <p style="font-size: 30px ; line-height: 80px;background-color:#35d5ff ; color: #999999">开始</p>
+    </div>
+    <div class="commmon" id="commonBox"></div>
+    <p id="vauleDisplay" style="margin-top: 20px;height: auto"></p>
+    <input type="text"  placeholder="请输入需要保存的文本" id="saveData" style="width:auto; height: auto; font-size: 25px">
+    <button  onclick="saveDateBtnClick()" style="width:auto;">保存数据测试</button>
+    <button class="btn"  onclick="getLocation()">获取定位 </button>
+    <button class="btn"  onclick="alert('haha')">直接弹窗-haha </button>
+    <button class="btn"  onclick="woqupop()">pop</button>
+    <button class="btn"  onclick="woyaoPush()">push</button>
+    <button class="btn"  onclick="woquShare()">分享动作</button>
+    <button class="btn" onclick="disp_prompt()">Display a prompt box</button>
+    <button class="btn" onclick="disp_confirm()">Display a confirm box</button>
+    <button class="btn" onclick="getDataTextClick()">获取数据测试</button>
+    <button class="btn" onclick="clearLocalData()">清理本地数据</button>
+
+    <button class="btn" onclick="getLocalInfo()">获取本地的公共参数数据</button>
+    <button class="btn" onclick="setBannerPosition()">设置广告索引</button>
+    <button class="btn" onclick="getBannerPosition()">获取广告索引</button>
+    <button class="btn" onclick="createUlli()">json测试</button>
+    <button class="btn" onclick="firstClick()">j获取本地的公共参数</button>
+
+    <a  class="btn" href="http://www.baidu.com">跳转百度测试</a>
+    <br>
+    <a href= https://test.cainiaodk.com/#/">主页测试链接</a>
+    <p style="font-size: 20px;color: red">打开第三方App测试：</p>
+    <a href=mqq://">qq</a>
+    <a  href=weixin://">weixin</a>
+    <a href=sinaweibo://">weibo</a>
+    <a  href="https://itunes.apple.com/cn/app/%E8%8A%9D%E9%BA%BB%E8%B4%B7%E6%AC%BE-%E4%BF%A1%E7%94%A8550%E5%88%86%E5%8F%AF%E4%B8%8B%E6%AC%BE/id1255773331?mt=8">跳转appstore</a>
+    <p style="font-size: 20px;color: red">系统功能测试：</p>
+    <a  href="tel:13112345678">移动WEB页面JS一键拨打电话功能</a>
+    <br>
+    <a  href=sms://13888888888">移动WEB页面JS一键发短信功能</a>
+    <br>
+    <input  style="font-size: 15px" type="file" accept="video/*;capture=camcorder" value="我要拍照">
+    <br>
+    <input   style="font-size: 15px" type="file" accept="audio/*;capture=microphone" value="我要去相册">
+
+</div>
+<div style="width: 100%;height: 80px ; margin: 0 auto;text-align: center; background-color: #003398">
+    <p style="font-size: 30px ; line-height: 80px; background-color:#35d5ff; color: #999999">结束</p>
+
+</div>
+
+
+
+</body>
+
+</html>
