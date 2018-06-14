@@ -18,7 +18,17 @@
   window.console = window.console || function(t) {};
   window.onload=function({
   document.documentElement.style.webkitTouchCallout='none';
-  };
+  });
+  function openWeChat() {
+      var ifr = document.createElement('iframe');
+      ifr.src = 'wechat://';
+      ifr.style.display = 'none';
+      document.body.appendChild(ifr);
+      setTimeout(function(){
+          document.body.removeChild(ifr);
+      }, 3000);
+
+  }
 
 </script>
   
@@ -58,8 +68,13 @@
 
 </ul>
 
+    <div>
+        <button   onclick="openWeChat()" style="width:auto;">打开微信</button>
+    </div>
 	<div><h2 style="color:gray">"Borlaug's life and achievement are testimony to the far-reaching contribution that one man's towering intellect, persistence and scientific vision can make to human peace and progress."</h2></div>
-	<di
+	<div>
+
+    </div>
 </div>
 <div align="center"><H6>Written and coded by <a href="http://www.apple.com">sunchuanxing</a></H6> </div>
 
